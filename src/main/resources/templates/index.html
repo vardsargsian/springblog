@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link rel="stylesheet" href="../static/Style.css">-->
+</head>
+<a href="/post/add">Add Post</a>, <a href="/category/add">Add Category</a>
+<body>
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td>picture</td>
+        <td>title</td>
+        <td>shortText</td>
+        <td>text</td>
+        <td>Category.name</td>
+        <td>Action</td>
+    </tr>
+    <tr th:each="post : ${posts}">
+
+        <td th:text="${post.id}"></td>
+        <td><img width="50" th:if="${post.picUrl != null}" th:src="@{/post/getImage(picUrl=${post.picUrl})}"></td>
+        <td th:text="${post.title}"></td>
+        <td th:text="${post.shortText}"></td>
+        <td th:text="${post.text}"></td>
+        <td> <span th:each="cats : ${post.getCategories()}" th:text="${cats.name} + ' ' "></span> </td>
+        <td><a th:href="@{/post/delete(id=${post.id})}">Delete</a> </td>
+    </tr>
+</table>
+</body>
+</html>
